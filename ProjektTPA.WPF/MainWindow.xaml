@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"  
         xmlns:converters="clr-namespace:ProjektTPA.WPF.Converters"
         mc:Ignorable="d"
-        DataContext="{Binding Path=MainViewModel, Source={StaticResource ServiceLocator}}"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <converters:TreeTypeEnumToSolidColorBrushConverter x:Key="TypeToColorConverter"/>
@@ -28,6 +27,7 @@
             </TreeView.ItemContainerStyle>
         </TreeView>
         <Button Content="Open file" HorizontalAlignment="Left" Margin="243,10,0,0" VerticalAlignment="Top" Width="291" Command="{Binding LoadCommand}"/>
+        <Button Content="Save file" HorizontalAlignment="Left" Margin="559,10,0,0" VerticalAlignment="Top" Width="148" Command="{Binding SaveCommand}"/>
 
     </Grid>
 </Window>

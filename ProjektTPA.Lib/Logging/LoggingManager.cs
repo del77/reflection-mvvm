@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
+﻿using System.ComponentModel.Composition;
+using System.Diagnostics;
 
 namespace ProjektTPA.Lib.Logging
 {
+    [Export(typeof(ILoggingManager))]
     public class LoggingManager : ILoggingManager
     {
         public LoggingManager()

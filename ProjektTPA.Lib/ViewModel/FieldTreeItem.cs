@@ -15,7 +15,7 @@ namespace ProjektTPA.Lib.ViewModel
             Children = PrepareChildrenInstance();
         }
 
-        public override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
+        public sealed override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
         {
             var ret = new ObservableCollection<TreeViewItem>();
             if (FieldModel.TypeModel != null || FieldModel.Attributes.Count() != 0)
@@ -44,6 +44,7 @@ namespace ProjektTPA.Lib.ViewModel
             Name = FieldModel.Access + " " + FieldModel.TypeModel.Name + " " + Name;
         }
 
+        public override string Name { get; set; }
         public FieldModel FieldModel { get; set; }
     }
 }

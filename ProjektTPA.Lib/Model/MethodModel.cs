@@ -3,22 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using ProjektTPA.Lib.Extensions;
 using ProjektTPA.Lib.Model.Enums;
 
 namespace ProjektTPA.Lib.Model
 {
+    [DataContract(IsReference = true)]
     public class MethodModel : Model
     {
         public MethodModel(MethodBase method) : base(method.Name)
         {
             GenericArguments = method.IsGenericMethodDefinition ? TypeModel.GetTypes(method.GetGenericArguments()) : null;
             ReturnType = EmitReturnType(method);
-            Parameters = EmitParameters(method.GetParameters());
+            Parameters = EmitParameters(method.GetParameters()).ToList();
             Modifiers = EmitModifiers(method);
             Extension = EmitExtension(method);
-            Attributes = EmitAttributes(method);
+            Attributes = EmitAttributes(method).ToList();
         }
 
         private IEnumerable<TypeModel> EmitAttributes(MethodBase method)
@@ -49,6 +51,8 @@ namespace ProjektTPA.Lib.Model
             AbstractEnum _abstract = AbstractEnum.NotAbstract;
             if (method.IsAbstract)
                 _abstract = AbstractEnum.Abstract;
+            else if (method.IsFinal)
+                _abstract = AbstractEnum.Sealed;
             StaticEnum _static = StaticEnum.NotStatic;
             if (method.IsStatic)
                 _static = StaticEnum.Static;
@@ -71,17 +75,18 @@ namespace ProjektTPA.Lib.Model
                 return null;
             return TypeModel.GetType(methodInfo.ReturnType);
         }
-
+        [DataMember]
         public bool Extension { get; set; }
-
+        [DataMember]
         public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers { get; set; }
-
-        public IEnumerable<FieldModel> Parameters { get; set; }
-
+        [DataMember]
+        public List<FieldModel> Parameters { get; set; }
+        [DataMember]
         public TypeModel ReturnType { get; set; }
-
-        public IEnumerable<TypeModel> GenericArguments { get; set; }
-        public IEnumerable<TypeModel> Attributes { get; set; }
+        [DataMember]
+        public List<TypeModel> GenericArguments { get; set; }
+        [DataMember]
+        public List<TypeModel> Attributes { get; set; }
 
         public static IEnumerable<MethodModel> EmitMethods(IEnumerable<MethodBase> methods)
         {

@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using System.Security.Claims;
 
 namespace ProjektTPA.Lib.Model
 {
+    [DataContract(IsReference = true)]
     public class NamespaceModel : Model
     {
         public NamespaceModel(string ns, IEnumerable<string> nested, Assembly assembly) : base(ns)
@@ -22,7 +24,9 @@ namespace ProjektTPA.Lib.Model
             }
         }
 
+        [DataMember]
         public List<TypeModel> Types { get; set; }
+        [DataMember]
         public List<NamespaceModel> Namespaces { get; set; } = new List<NamespaceModel>();
     }
 }

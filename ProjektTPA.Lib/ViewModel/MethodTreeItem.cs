@@ -9,6 +9,7 @@ namespace ProjektTPA.Lib.ViewModel
     public class MethodTreeItem : TreeViewItem
     {
         public MethodModel MethodModel { get; set; }
+        public override string Name { get; set; }
         public MethodTreeItem(MethodModel methodModel) : base(methodModel.Name)
         {
             MethodModel = methodModel;
@@ -17,7 +18,7 @@ namespace ProjektTPA.Lib.ViewModel
             ResolveFullName();
         }
 
-        public override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
+        public sealed override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
         {
             var ret = new ObservableCollection<TreeViewItem>();
             if((MethodModel.ReturnType != null && MethodModel.ReturnType.Name != "Void") || MethodModel.Parameters.Count() != 0 || MethodModel.Attributes.Count() != 0)
@@ -31,7 +32,7 @@ namespace ProjektTPA.Lib.ViewModel
                 return;
             StringBuilder builder = new StringBuilder();
             builder.Append(MethodModel.Modifiers.Item1);
-            if (MethodModel.Modifiers.Item2 == AbstractEnum.Abstract)
+            if (MethodModel.Modifiers.Item2 != AbstractEnum.NotAbstract)
                 builder.Append(" ").Append(MethodModel.Modifiers.Item2);
             if (MethodModel.Modifiers.Item3 == StaticEnum.Static)
                 builder.Append(" ").Append(MethodModel.Modifiers.Item3);

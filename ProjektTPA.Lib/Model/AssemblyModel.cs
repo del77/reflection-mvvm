@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using ProjektTPA.Lib.Extensions;
 
 namespace ProjektTPA.Lib.Model
 {
+    [DataContract]
     public class AssemblyModel : Model
     {
         public AssemblyModel(Assembly assembly) : base(assembly.ManifestModule.Name)
@@ -22,6 +24,7 @@ namespace ProjektTPA.Lib.Model
             }
         }
 
+        [DataMember]
         public List<NamespaceModel> NamespaceModels { get; set; } = new List<NamespaceModel>();
     }
 }

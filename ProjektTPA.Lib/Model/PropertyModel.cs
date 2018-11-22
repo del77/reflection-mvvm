@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using ProjektTPA.Lib.Extensions;
 using ProjektTPA.Lib.Model.Enums;
 
 namespace ProjektTPA.Lib.Model
 {
+    [DataContract(IsReference = true)]
     public class PropertyModel : Model
     {
         public TypeModel TypeModel { get; set; }
@@ -14,10 +16,15 @@ namespace ProjektTPA.Lib.Model
         {
         }
 
-        public IEnumerable<TypeModel> Attributes { get; set; }
+        [DataMember]
+        public List<TypeModel> Attributes { get; set; }
+        [DataMember]
         public AccessLevel Access { get; set; }
+        [DataMember]
         public MethodModel Getter { get; set; }
+        [DataMember]
         public MethodModel Setter { get; set; }
+        [DataMember]
         public TypeModel Type { get; set; }
 
 
@@ -28,7 +35,7 @@ namespace ProjektTPA.Lib.Model
             Setter = prop.SetMethod == null ? null : new MethodModel(prop.SetMethod);
             Access = SetAccessLevel();
             Type = Getter.ReturnType;
-            Attributes = prop.GetCustomAttributes(false).Select(x => TypeModel.GetType(x.GetType()));
+            Attributes = prop.GetCustomAttributes(false).Select(x => TypeModel.GetType(x.GetType())).ToList();
         }
 
         private AccessLevel SetAccessLevel()

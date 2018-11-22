@@ -14,8 +14,8 @@ namespace ProjektTPA.Lib.ViewModel
         }
 
         public TreeTypeEnum TreeType { get; set; }
-        public string Name { get; set; }  
-        public ObservableCollection<TreeViewItem> Children { get; set; }
+        public virtual string Name { get; set; }  
+        public ObservableCollection<TreeViewItem> Children { get; set; }= new ObservableCollection<TreeViewItem>();
         public bool IsExpanded
         {
             get => isExpanded;

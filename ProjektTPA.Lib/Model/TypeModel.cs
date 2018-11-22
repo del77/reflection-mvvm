@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.Serialization;
 using Ninject;
 using ProjektTPA.Lib.Extensions;
 using ProjektTPA.Lib.Model.Enums;
 
 namespace ProjektTPA.Lib.Model
 {
+    [DataContract(IsReference = true)]
     public class TypeModel : Model
     {
         public static Dictionary<string, TypeModel> LoadedTypes = new Dictionary<string, TypeModel>();
@@ -48,7 +50,8 @@ namespace ProjektTPA.Lib.Model
         private List<FieldModel> EmitFields(IEnumerable<FieldInfo> fields)
         {
             return (from field in fields
-                select new FieldModel(field.GetCustomAttributes(false), field.Name, GetTypeWithDetails(field.FieldType))).ToList();
+                select new FieldModel(field.GetCustomAttributes(false), field.Name, GetType(field.FieldType))).ToList();
+            //select new FieldModel(field.GetCustomAttributes(false), field.Name, GetTypeWithDetails(field.FieldType))).ToList();
         }
 
         private static TypeKind GetTypeKind(Type type) //#80 TPA: Reflection - Invalid return value of GetTypeKind()
@@ -137,20 +140,33 @@ namespace ProjektTPA.Lib.Model
         {
             GenericArguments = genergicArguments.ToList();
         }
-
+        [DataMember]
         public TypeModel DeclaringType { get; set; }
+        [DataMember]
         public List<MethodModel> Constructors { get; set; }
+        [DataMember]
         public List<MethodModel> Methods { get; set; }
+        [DataMember]
         public List<TypeModel> NestedTypes { get; set; }
+        [DataMember]
         public List<TypeModel> ImplementedInterfaces { get; set; }
+        [DataMember]
         public List<TypeModel> GenericArguments { get; set; }
+        [DataMember]
         public List<FieldModel> Fields { get; set; }
+        [DataMember]
         public Tuple<AccessLevel, SealedEnum, AbstractEnum> Modifiers { get; set; }
+        [DataMember]
         public TypeModel BaseType { get; set; }
+        [DataMember]
         public List<PropertyModel> Properties { get; set; }
+        [DataMember]
         public TypeKind TypeKind { get; set; }
+        [DataMember]
         public List<TypeModel> Attributes { get; set; }
+        [DataMember]
         public string NamespaceName;
+        [DataMember]
         public bool Resolved { get; set; } = false;
     }
     

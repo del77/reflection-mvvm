@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
-using ProjektTPA.Lib.IoC;
-using ProjektTPA.Lib.Utility;
+﻿using System.Windows;
 
 namespace ProjektTPA.WPF
 {
@@ -19,7 +10,7 @@ namespace ProjektTPA.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
-            ServiceLocator.Kernel.Bind<IDataProvider>().To<DataProvider>();
+
         }
     }
 }

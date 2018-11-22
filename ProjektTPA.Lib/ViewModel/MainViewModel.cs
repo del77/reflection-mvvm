@@ -1,28 +1,77 @@
 ﻿
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel.Composition;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
+using System.Runtime.Serialization;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using Ninject;
 using ProjektTPA.Lib.Command;
 using ProjektTPA.Lib.Logging;
+using ProjektTPA.Lib.Model;
 using ProjektTPA.Lib.Utility;
 
 namespace ProjektTPA.Lib.ViewModel
 {
-    using Microsoft.Win32;
-    using ProjektTPA.Lib.Model;
-    public class MainViewModel
+    [Export(typeof(MainViewModel))]
+    public class MainViewModel : ViewModelBase
     {
-        public ObservableCollection<TreeViewItem> Nodes { get; set; }
-        private AssemblyTreeItem _assemblyTreeItem;
-        private readonly ILoggingManager loggingManager;
-        private readonly IDataProvider dataProvider;
+        public ObservableCollection<TreeViewItem> Nodes
+        {
+            get => _nodes;
+            set { _nodes = value; OnPropertyChanged("Nodes");  }
+        }
+
+        public ManualResetEvent oSignalEvent = new ManualResetEvent(false);
+
+        [Import(typeof(ILoggingManager))]
+        public ILoggingManager loggingManager;
+        [Import(typeof(IDataProvider))]
+        private IDataProvider dataProvider;
+        [Import(typeof(IReflector))]
         private IReflector reflector;
+        [Import(typeof(ISerializer))]
+        private ISerializer serializer;
+
+        private ObservableCollection<TreeViewItem> _nodes;
 
         public ICommand LoadCommand
-            => new RelayCommand(Load);
+            => new RelayCommand(async () =>
+            {
+                var item = await Task.Run(() => Load());
+                Nodes.Add(item);
+                oSignalEvent.Set();
+            });
+       
+
+        public ICommand SaveCommand => new RelayCommand(Save);
+
+        private void Save()
+        {
+            Task.Run(() =>
+            {
+                int i = 1;
+                foreach (AssemblyTreeItem assemblyTreeItem in Nodes)
+                {
+                    serializer.Serialize(assemblyTreeItem.AssemblyModel,
+                        AppDomain.CurrentDomain.BaseDirectory + "result" + i++ + ".xml");
+                }
+
+
+            });
+
+        }
+
+        public MainViewModel()
+        {
+            Nodes = new ObservableCollection<TreeViewItem>();
+        }
 
         [Inject]
         public MainViewModel(ILoggingManager loggingManager, IDataProvider dataProvider, IReflector reflector)
@@ -32,29 +81,38 @@ namespace ProjektTPA.Lib.ViewModel
             this.dataProvider = dataProvider;
             this.reflector = reflector;
         }
-        
 
 
-        private void Load()
+
+        private AssemblyTreeItem Load()
         {
+
             //Assembly assembly = Assembly.LoadFile((string)path);
+            AssemblyTreeItem _assemblyTreeItem;
             string path = dataProvider.GetPath();
+            if (path == String.Empty)
+                loggingManager.Log("File path was empty", TraceLevel.Error);
             loggingManager.Log("File path loaded");
-            try
+            if (path.Contains(".xml"))
+            {
+                _assemblyTreeItem = new AssemblyTreeItem(serializer.Deserialize(path));
+            }
+            else if (path.Contains(".dll"))
             {
                 reflector.Reflect(path);
+                _assemblyTreeItem = new AssemblyTreeItem(reflector.AssemblyModel);
             }
-            catch (ArgumentNullException e)
+            else
             {
-                loggingManager.Log("File path was empty" + e.Message, TraceLevel.Error);
-                return;
+                return null;
             }
 
-            loggingManager.Log("assembly loaded");
-            _assemblyTreeItem = new AssemblyTreeItem(reflector.AssemblyModel);
             loggingManager.Log("Models created");
 
-            Nodes.Add(_assemblyTreeItem);
+            return _assemblyTreeItem;
         }
+
+
+
     }
 }

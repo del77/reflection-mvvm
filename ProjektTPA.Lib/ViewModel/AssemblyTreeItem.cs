@@ -18,7 +18,7 @@ namespace ProjektTPA.Lib.ViewModel
             Children = PrepareChildrenInstance();
         }
 
-        public override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
+        public sealed override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
         {
             var ret = new ObservableCollection<TreeViewItem>();
             if (AssemblyModel.NamespaceModels.Count != 0)

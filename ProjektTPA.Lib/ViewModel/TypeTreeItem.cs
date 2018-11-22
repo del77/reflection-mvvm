@@ -11,6 +11,7 @@ namespace ProjektTPA.Lib.ViewModel
     public class TypeTreeItem : TreeViewItem
     {
         public TypeModel TypeModel { get; set; }
+        public override string Name { get; set; }
         public TypeTreeItem(TypeModel typeModel) : base(typeModel.Name)
         {
             TypeModel = typeModel;
@@ -19,11 +20,11 @@ namespace ProjektTPA.Lib.ViewModel
 
         }
 
-        public override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
+        public sealed override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
         {
             var ret = new ObservableCollection<TreeViewItem>();
             
-            if(!TypeModel.IsGeneric && TypeModel.Name != "Void")
+            if(!TypeModel.IsGeneric && TypeModel.Name != "Void" && TypeModel.Resolved)
                 ret.Add(null);
             
             return ret;

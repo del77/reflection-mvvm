@@ -1,12 +1,15 @@
-﻿using System.Reflection;
+﻿using System.ComponentModel.Composition;
+using System.IO;
+using System.Reflection;
 using Ninject;
 using ProjektTPA.Lib.Model;
 
 namespace ProjektTPA.Lib.Utility
 {
+    [Export(typeof(IReflector))]
     public class Reflector : IReflector
     {
-        [Inject]
+        //[Inject]
         public Reflector()
         {
         }
@@ -16,7 +19,7 @@ namespace ProjektTPA.Lib.Utility
         {
             if (string.IsNullOrEmpty(assemblyPath))
                 throw new System.ArgumentNullException();
-            Assembly assembly = Assembly.LoadFrom(assemblyPath);
+            Assembly assembly = Assembly.LoadFile(Path.GetFullPath(assemblyPath));
             AssemblyModel = new AssemblyModel(assembly);
         }
     }

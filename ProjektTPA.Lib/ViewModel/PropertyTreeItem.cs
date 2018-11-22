@@ -20,8 +20,9 @@ namespace ProjektTPA.Lib.ViewModel
         }
 
         private PropertyModel PropertyModel { get; set; }
+        public override string Name { get; set; }
 
-        public override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
+        public sealed override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
         {
             var ret = new ObservableCollection<TreeViewItem>() {null};
             return ret;

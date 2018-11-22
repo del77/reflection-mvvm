@@ -11,6 +11,7 @@ namespace ProjektTPA.Lib.ViewModel
     public class NamespaceTreeItem : TreeViewItem
     {
         public NamespaceModel NamespaceModel { get; set; }
+        public override string Name { get; set; }
         public NamespaceTreeItem(NamespaceModel namespaceModel) : base(namespaceModel.Name)
         {
             NamespaceModel = namespaceModel;
@@ -18,7 +19,7 @@ namespace ProjektTPA.Lib.ViewModel
             Children = PrepareChildrenInstance();
         }
 
-        public override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
+        public sealed override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
         {
             var ret = new ObservableCollection<TreeViewItem>();
             if (NamespaceModel.Types.Count() != 0 || NamespaceModel.Namespaces.Count() != 0)
