@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Threading;
+using ProjektTPA.Lib;
 using ProjektTPA.Lib.Model;
 using ProjektTPA.Lib.Utility;
 using Xunit;
@@ -26,8 +27,7 @@ namespace ProjektTPA.Test
         public void Should_Create_Placeholders_Types_When_Getting_Type_Details()
         {
             TypeModel typeModel = TypeModel.GetTypeWithDetails(typeof(test2));
-            Thread.Sleep(500);
-            Assert.Equal(61, TypeModel.LoadedTypes.Count);
+            Assert.Equal(3, TypeModel.LoadedTypes.Count);
         }
 
         [Fact]

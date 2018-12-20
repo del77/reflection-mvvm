@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
-using ProjektTPA.Lib.Model.Enums;
+using ViewModel.Enums;
 
 namespace ProjektTPA.WPF.Converters
 {

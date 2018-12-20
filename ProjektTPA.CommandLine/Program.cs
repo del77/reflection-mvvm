@@ -2,8 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using ProjektTPA.Lib.ViewModel;
-using TreeViewItem = ProjektTPA.Lib.ViewModel.TreeViewItem;
+using ViewModel.ViewModel;
 
 namespace ProjektTPA.CommandLine
 {
@@ -52,7 +51,7 @@ namespace ProjektTPA.CommandLine
         public void ComposeParts()
         {
             AggregateCatalog catalog = new AggregateCatalog();
-            catalog.Catalogs.Add(new AssemblyCatalog(typeof(DataProvider).Assembly));
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(PathProvider).Assembly));
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(MainViewModel).Assembly));
             
             container = new CompositionContainer(catalog);

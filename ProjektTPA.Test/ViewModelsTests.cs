@@ -1,11 +1,14 @@
 using System;
+using System.ComponentModel.Composition;
+using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
 using System.Linq;
-using ProjektTPA.Lib.IoC;
+using ProjektTPA.Lib;
 using ProjektTPA.Lib.Logging;
 using ProjektTPA.Lib.Model;
 using ProjektTPA.Lib.Utility;
-using ProjektTPA.Lib.ViewModel;
+using ViewModel.Interfaces;
+using ViewModel.ViewModel;
 using Xunit;
 
 namespace ProjektTPA.Test
@@ -13,33 +16,42 @@ namespace ProjektTPA.Test
     public class ViewModelsTests
     {
         string path = AppDomain.CurrentDomain.BaseDirectory + "TestLibrary.dll";
-        IReflector reflector = new Reflector();
+        [Import(typeof(MainViewModel))]
+        private MainViewModel mainViewModel = new MainViewModel();
 
-
-        [Fact]
-        public void Should_Get_MainViewModel_From_IOC_Container()
+        public ViewModelsTests()
         {
-            //ServiceLocator.Kernel.Bind<IDataProvider>().To<DataProvider>();
-            MainViewModel mainViewModel = ServiceLocator.MainViewModel;
+            AggregateCatalog catalog = new AggregateCatalog();
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(PathProvider).Assembly));
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(MainViewModel).Assembly));
+            catalog.Catalogs.Add(new AssemblyCatalog(typeof(Reflector).Assembly));
+            CompositionContainer container = new CompositionContainer(catalog);
+            try
+            {
+                container.ComposeParts(mainViewModel);
+            }
+            catch (CompositionException compositionException)
+            {
+                Console.WriteLine(compositionException.ToString());
+            }
+        }
+        [Fact]
+        public void Should_Get_MainViewModel_From_MEF()
+        {
             Assert.NotNull(mainViewModel);
         }
 
         [Fact]
         public void Should_Populate_AssemblyTreeItem()
         {
-
-            MainViewModel mainViewModel = new MainViewModel(new Lib.Logging.LoggingManager(), new DataProvider(), new Reflector());
-
-            mainViewModel.LoadCommand.Execute(null);
-
+            LoadAsync();
             Assert.Equal(1, mainViewModel.Nodes.Count);
         }
 
         [Fact]
         public void Should_Populate_ViewModels_For_Assembly()
         {
-            ServiceLocator.Kernel.Bind<IDataProvider>().To<DataProvider>();
-            MainViewModel mainViewModel = ServiceLocator.MainViewModel;
+            LoadAsync();
             mainViewModel.LoadCommand.Execute(null);
             Assert.Null(mainViewModel.Nodes.ElementAt(0).Children.ElementAt(0));
             mainViewModel.Nodes.ElementAt(0).BuildMyself();
@@ -49,18 +61,17 @@ namespace ProjektTPA.Test
         [Fact]
         public void Should_Execute_Loggers_Log_Method()
         {
-            LoggingManager manager = new LoggingManager();
-            MainViewModel mainViewModel = new MainViewModel(manager, new DataProvider(), new Reflector());
+            Manager manager = mainViewModel.loggingManager as Manager;
+            //mainViewModel.logger = manager;
             Assert.Equal(0, manager.messagesSent);
-            mainViewModel.LoadCommand.Execute(null);
-            Assert.Equal(3, manager.messagesSent);
+            LoadAsync();
+            Assert.Equal(2, manager.messagesSent);
         }
 
         [Fact]
         public void Should_Create_Lower_Level_Viewmodels()
         {
-            MainViewModel mainViewModel = ServiceLocator.MainViewModel;
-            mainViewModel.LoadCommand.Execute(null);
+            LoadAsync();
             var zeroNode = mainViewModel.Nodes.ElementAt(0);
             zeroNode.BuildMyself();
             NamespaceTreeItem namespaceVM = (NamespaceTreeItem)zeroNode.Children.ElementAt(0);
@@ -68,7 +79,7 @@ namespace ProjektTPA.Test
             Assert.Equal(5, namespaceVM.Children.Count);
             TypeTreeItem typeVM = (TypeTreeItem) namespaceVM.Children.ElementAt(0);
             typeVM.BuildMyself();
-            Assert.Equal(2, typeVM.Children.Count);
+            Assert.Equal(3, typeVM.Children.Count);
             MethodTreeItem methodVM = (MethodTreeItem)typeVM.Children.ElementAt(0);
             FieldTreeItem fieldVM = (FieldTreeItem)typeVM.Children.ElementAt(1);
             methodVM.BuildMyself();
@@ -76,25 +87,43 @@ namespace ProjektTPA.Test
             Assert.Equal(0, methodVM.Children.Count);
             Assert.Equal(1, fieldVM.Children.Count);
         }
+
+        private void LoadAsync()
+        {
+            System.Threading.Thread oSecondThread = new System.Threading.Thread(mainViewModel.LoadCommand.Execute);
+            oSecondThread.Start();
+            mainViewModel.oSignalEvent.WaitOne();
+            mainViewModel.oSignalEvent.Reset();
+        }
     }
 
-
-    class DataProvider : IDataProvider
+    [Export(typeof(IPathProvider))]
+    class PathProvider : IPathProvider
     {
         public string GetPath() => AppDomain.CurrentDomain.BaseDirectory + "TestLibrary.dll";
     }
 
-    class LoggingManager : ILoggingManager
+    [Export(typeof(ILoggingManager))]
+    class Manager : ILoggingManager
     {
         public int messagesSent = 0;
-        public void Log(string message)
-        {
-            messagesSent++;
-        }
-
         public void Log(string message, TraceLevel level)
         {
             messagesSent++;
+        }
+    }
+
+    [Export(typeof(ISerializer))]
+    class Serializer : ISerializer
+    {
+        public void Serialize(AssemblyModel assemblyModel, string path)
+        {
+            
+        }
+
+        public AssemblyModel Deserialize(string path)
+        {
+            return null;
         }
     }
 }

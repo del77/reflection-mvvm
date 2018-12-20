@@ -13,8 +13,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ProjektTPA.Lib\ProjektTPA.Lib.csproj" />
+    <ProjectReference Include="..\ProjektTPA.Lib\Model.csproj" />
     <ProjectReference Include="..\TestLibrary\TestLibrary.csproj" />
+    <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
   </ItemGroup>
 
 </Project>
