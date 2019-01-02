@@ -21,7 +21,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using ViewModel.Helpers;
-using ViewModel.ViewModel;
 
 namespace ProjektTPA.WPF
 {

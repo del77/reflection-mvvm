@@ -3,12 +3,11 @@ using System.ComponentModel.Composition;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
-using ProjektTPA.Lib.Logging;
+using MEF;
 
 namespace FileLogging
 {
     [Export(typeof(ILogger))]
-    //[ExportMetadata("Logging", "Database")]
     public class FileLogger : ILogger
     {
         private string fileName;

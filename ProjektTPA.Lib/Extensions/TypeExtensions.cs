@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace ProjektTPA.Lib.Extensions
+namespace BusinessLogic.Extensions
 {
     public static class TypeExtensions
     {

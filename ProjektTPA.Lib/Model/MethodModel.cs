@@ -3,18 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Runtime.Serialization;
 using System.Text;
-using ProjektTPA.Lib.Extensions;
-using ProjektTPA.Lib.Model.Enums;
+using DtoLayer.Enums;
 
-namespace ProjektTPA.Lib.Model
+namespace BusinessLogic.Model
 {
-    [DataContract(IsReference = true)]
-    public class MethodModel : Model
+    public class MethodModel
     {
-        public MethodModel(MethodBase method) : base(method.Name)
+        public MethodModel(MethodBase method)
         {
+            Name = method.Name;
             GenericArguments = method.IsGenericMethodDefinition ? TypeModel.GetTypes(method.GetGenericArguments()) : null;
             ReturnType = EmitReturnType(method);
             Parameters = EmitParameters(method.GetParameters()).ToList();
@@ -65,7 +63,7 @@ namespace ProjektTPA.Lib.Model
         private IEnumerable<FieldModel> EmitParameters(IEnumerable<ParameterInfo> parms)
         {
             return from parm in parms
-                select new FieldModel(parm.GetCustomAttributes(false), parm.Name, TypeModel.GetTypeWithDetails(parm.ParameterType));
+                select new FieldModel(parm.GetCustomAttributes(false), parm.Name, TypeModel.GetType(parm.ParameterType));
         }
 
         private TypeModel EmitReturnType(MethodBase method)
@@ -75,23 +73,56 @@ namespace ProjektTPA.Lib.Model
                 return null;
             return TypeModel.GetType(methodInfo.ReturnType);
         }
-        [DataMember]
+        public string Name { get; set; }
         public bool Extension { get; set; }
-        [DataMember]
         public Tuple<AccessLevel, AbstractEnum, StaticEnum, VirtualEnum> Modifiers { get; set; }
-        [DataMember]
         public List<FieldModel> Parameters { get; set; }
-        [DataMember]
         public TypeModel ReturnType { get; set; }
-        [DataMember]
         public List<TypeModel> GenericArguments { get; set; }
-        [DataMember]
         public List<TypeModel> Attributes { get; set; }
 
         public static IEnumerable<MethodModel> EmitMethods(IEnumerable<MethodBase> methods)
         {
             return from MethodBase currentMethod in methods
                 select new MethodModel(currentMethod);
+        }
+
+        public override string ToString()
+        {
+            if (Modifiers == null)
+                return Name;
+            StringBuilder builder = new StringBuilder();
+            builder.Append(Modifiers.Item1);
+            if (Modifiers.Item2 != AbstractEnum.NotAbstract)
+                builder.Append(" ").Append(Modifiers.Item2);
+            if (Modifiers.Item3 == StaticEnum.Static)
+                builder.Append(" ").Append(Modifiers.Item3);
+            if (Modifiers.Item4 == VirtualEnum.Virtual)
+                builder.Append(" ").Append(VirtualEnum.Virtual);
+
+
+            if (ReturnType != null)
+                builder.Append(" ").Append(ReturnType.Name).Append(" ");
+            builder.Append(Name).Append("(");
+
+            for (int i = 0; i < Parameters.Count() - 1; i++)
+            {
+                var parm = Parameters.ElementAt(i);
+                builder.Append(parm.TypeModel.Name).Append(" ").Append(parm.Name).Append(", ");
+            }
+            if (Parameters.LastOrDefault() != null)
+                builder.Append(Parameters.Last().TypeModel.Name).Append(" ").Append(Parameters.Last().Name);
+
+
+            builder.Append(")");
+
+
+            return builder.ToString();
+        }
+
+        public MethodModel()
+        {
+            
         }
     }
 }

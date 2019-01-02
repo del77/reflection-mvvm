@@ -47,9 +47,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjektTPA.Lib\Model.csproj">
-      <Project>{5465E1D6-3EB7-47EC-8B2C-963ADF5126A8}</Project>
-      <Name>Model</Name>
+    <ProjectReference Include="..\MEF\MEF.csproj">
+      <Project>{F1AF2B6D-BF02-4846-88E3-823AF9D833C4}</Project>
+      <Name>MEF</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

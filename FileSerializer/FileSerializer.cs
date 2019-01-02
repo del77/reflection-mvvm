@@ -6,32 +6,54 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
-using ProjektTPA.Lib.Model;
-using ProjektTPA.Lib.Utility;
+using AutoMapper;
+using DtoLayer;
+using FileSerializer.Model;
+using MEF;
 
 namespace FileSerializer
 {
     [Export(typeof(ISerializer))]
     public class FileSerializer : ISerializer
     {
-        public void Serialize(AssemblyModel assemblyModel, string path)
+        private string path;
+        public FileSerializer()
         {
+            path = "serialized.xml";
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<AssemblyXml, AssemblyDto>().ReverseMap();
+                cfg.CreateMap<NamespaceXml, NamespaceDto>().ReverseMap();
+                cfg.CreateMap<FieldXml, FieldDto>().ReverseMap();
+                cfg.CreateMap<MethodXml, MethodDto>().ReverseMap();
+                cfg.CreateMap<PropertyXml, PropertyDto>().ReverseMap();
+                cfg.CreateMap<TypeXml, TypeDto>().ReverseMap();
+            });
+        }
+        public void Serialize(object model)
+        {
+            AssemblyDto assemblyDto = (AssemblyDto) model;
+            AssemblyXml assemblyXml = Mapper.Map<AssemblyXml>(assemblyDto);
+
             DataContractSerializer dataContractSerializer =
-                new DataContractSerializer(typeof(AssemblyModel));
+                new DataContractSerializer(typeof(AssemblyXml));
 
             using (FileStream fileStream = new FileStream(path, FileMode.Create))
             {
-                dataContractSerializer.WriteObject(fileStream, assemblyModel);
+                dataContractSerializer.WriteObject(fileStream, assemblyXml);
             }
         }
 
-        public AssemblyModel Deserialize(string path)
+        public object Deserialize()
         {
-            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(AssemblyModel));
+            AssemblyXml ret;
+            DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(AssemblyXml));
             using (FileStream fileStream = new FileStream(path, FileMode.Open))
             {
-                return (AssemblyModel)dataContractSerializer.ReadObject(fileStream);
+                ret = (AssemblyXml)dataContractSerializer.ReadObject(fileStream);
             }
+            
+            return Mapper.Map<AssemblyDto>(ret);
         }
     }
 }

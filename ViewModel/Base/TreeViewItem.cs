@@ -1,8 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using ProjektTPA.Lib.Model.Enums;
 using ViewModel.Enums;
 
-namespace ViewModel.ViewModel
+namespace ViewModel.Base
 {
     public abstract class TreeViewItem : ITreeViewItem
     {

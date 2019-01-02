@@ -74,6 +74,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\TreeTypeEnumToSolidColorBrushConverter.cs" />
     <Compile Include="WPFPathProvider.cs" />
     <Compile Include="MainWindow.xaml.cs">
@@ -111,10 +112,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestLibrary\TestLibrary.csproj">
-      <Project>{42267b3d-1f77-4194-a2bd-2a689368c06e}</Project>
-      <Name>TestLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ViewModel\ViewModel.csproj">
       <Project>{E180F714-7529-4727-B082-715A08AB3681}</Project>
       <Name>ViewModel</Name>

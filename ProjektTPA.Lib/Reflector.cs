@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.Composition;
 using System.IO;
 using System.Reflection;
-using ProjektTPA.Lib.Model;
-using ProjektTPA.Lib.Utility;
+using BusinessLogic.Interfaces;
+using BusinessLogic.Model;
 
-namespace ProjektTPA.Lib
+namespace BusinessLogic
 {
     [Export(typeof(IReflector))]
     public class Reflector : IReflector

@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace ViewModel.ViewModel
+namespace ViewModel.Base
 {
     public interface ITreeViewItem
     {

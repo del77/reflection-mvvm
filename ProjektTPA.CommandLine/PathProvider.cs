@@ -2,7 +2,6 @@
 using System.ComponentModel.Composition;
 using System.IO;
 using System.Threading;
-using ProjektTPA.Lib.Utility;
 using ViewModel.Interfaces;
 
 namespace ProjektTPA.CommandLine

@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace DatabaseLogging
 {
-    [Export(typeof(LoggingContext))]
     public class LoggingContext : DbContext
     {
-
+        public LoggingContext() : base(@"LogsDatabase")
+        {
+        }
 
         public DbSet<Log> Logs { get; set; }
     }

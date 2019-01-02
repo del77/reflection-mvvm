@@ -1,10 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using ProjektTPA.Lib.Model;
-using ProjektTPA.Lib.Model.Enums;
+using BusinessLogic.Model;
+using ViewModel.Base;
 using ViewModel.Enums;
 
-namespace ViewModel.ViewModel
+namespace ViewModel.Tree
 {
     public class NamespaceTreeItem : TreeViewItem
     {

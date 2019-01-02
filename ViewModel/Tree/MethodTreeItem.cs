@@ -1,22 +1,21 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using ProjektTPA.Lib.Model;
-using ProjektTPA.Lib.Model.Enums;
+using BusinessLogic.Model;
+using ViewModel.Base;
 using ViewModel.Enums;
 
-namespace ViewModel.ViewModel
+namespace ViewModel.Tree
 {
     public class MethodTreeItem : TreeViewItem
     {
         public MethodModel MethodModel { get; set; }
         public override string Name { get; set; }
-        public MethodTreeItem(MethodModel methodModel) : base(methodModel.Name)
+        public MethodTreeItem(MethodModel methodModel) : base(methodModel.ToString())
         {
             MethodModel = methodModel;
             TreeType = TreeTypeEnum.Method;
             Children = PrepareChildrenInstance();
-            ResolveFullName();
+            //ResolveFullName();
         }
 
         public sealed override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
@@ -29,35 +28,35 @@ namespace ViewModel.ViewModel
 
         private void ResolveFullName()
         {
-            if (MethodModel.Modifiers == null)
-                return;
-            StringBuilder builder = new StringBuilder();
-            builder.Append(MethodModel.Modifiers.Item1);
-            if (MethodModel.Modifiers.Item2 != AbstractEnum.NotAbstract)
-                builder.Append(" ").Append(MethodModel.Modifiers.Item2);
-            if (MethodModel.Modifiers.Item3 == StaticEnum.Static)
-                builder.Append(" ").Append(MethodModel.Modifiers.Item3);
-            if (MethodModel.Modifiers.Item4 == VirtualEnum.Virtual)
-                builder.Append(" ").Append(VirtualEnum.Virtual);
+            //if (MethodModel.Modifiers == null)
+            //    return;
+            //StringBuilder builder = new StringBuilder();
+            //builder.Append(MethodModel.Modifiers.Item1);
+            //if (MethodModel.Modifiers.Item2 != AbstractEnum.NotAbstract)
+            //    builder.Append(" ").Append(MethodModel.Modifiers.Item2);
+            //if (MethodModel.Modifiers.Item3 == StaticEnum.Static)
+            //    builder.Append(" ").Append(MethodModel.Modifiers.Item3);
+            //if (MethodModel.Modifiers.Item4 == VirtualEnum.Virtual)
+            //    builder.Append(" ").Append(VirtualEnum.Virtual);
 
 
-            if(MethodModel.ReturnType != null)
-                builder.Append(" ").Append(MethodModel.ReturnType.Name).Append(" ");
-            builder.Append(Name).Append("(");
+            //if(MethodModel.ReturnType != null)
+            //    builder.Append(" ").Append(MethodModel.ReturnType.Name).Append(" ");
+            //builder.Append(Name).Append("(");
 
-            for (int i = 0; i < MethodModel.Parameters.Count() - 1;i++)
-            {
-                var parm = MethodModel.Parameters.ElementAt(i);
-                builder.Append(parm.TypeModel.Name).Append(" ").Append(parm.Name).Append(", ");
-            }
-            if(MethodModel.Parameters.LastOrDefault() != null)
-                builder.Append(MethodModel.Parameters.Last().TypeModel.Name).Append(" ").Append(MethodModel.Parameters.Last().Name);
+            //for (int i = 0; i < MethodModel.Parameters.Count() - 1;i++)
+            //{
+            //    var parm = MethodModel.Parameters.ElementAt(i);
+            //    builder.Append(parm.TypeModel.Name).Append(" ").Append(parm.Name).Append(", ");
+            //}
+            //if(MethodModel.Parameters.LastOrDefault() != null)
+            //    builder.Append(MethodModel.Parameters.Last().TypeModel.Name).Append(" ").Append(MethodModel.Parameters.Last().Name);
 
 
-            builder.Append(")");
+            //builder.Append(")");
             
 
-            Name = builder.ToString();
+            //Name = builder.ToString();
         }
 
         public override void BuildMyself()

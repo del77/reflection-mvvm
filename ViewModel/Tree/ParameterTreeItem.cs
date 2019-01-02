@@ -1,17 +1,17 @@
 ﻿using System.Collections.ObjectModel;
-using ProjektTPA.Lib.Model;
-using ProjektTPA.Lib.Model.Enums;
+using BusinessLogic.Model;
+using ViewModel.Base;
 using ViewModel.Enums;
 
-namespace ViewModel.ViewModel
+namespace ViewModel.Tree
 {
     public class ParameterTreeItem : TreeViewItem
     {
-        public ParameterTreeItem(FieldModel fieldModel) : base(fieldModel.Name)
+        public ParameterTreeItem(FieldModel fieldModel) : base(fieldModel.ToString())
         {
             TreeType = TreeTypeEnum.Parameter;
             FieldModel = fieldModel;
-            ResolveFullName();
+            //ResolveFullName();
             Children = PrepareChildrenInstance();
         }
 
@@ -32,7 +32,7 @@ namespace ViewModel.ViewModel
 
         private void ResolveFullName()
         {
-            Name = FieldModel.TypeModel.Name + " " + Name;
+           // Name = FieldModel.TypeModel.Name + " " + Name;
         }
 
         public FieldModel FieldModel { get; set; }

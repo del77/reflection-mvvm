@@ -6,21 +6,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DatabaseLogging;
-using ProjektTPA.Lib.Logging;
+using MEF;
 
 namespace DatabaseLogging
 {
     [Export(typeof(ILogger))]
-    //[ExportMetadata("Logging", "Database")]
     public class DatabaseLogger : ILogger
     {
-        [Import(typeof(LoggingContext))]
         public LoggingContext Context { get; set; }
-        Log log = new Log();
-        //public void Log(string message)
-        //{
-        //    Log(message, TraceLevel.Info);
-        //}
+
+        public DatabaseLogger()
+        {
+            Context = new LoggingContext();
+        }
 
         public void Log(string message, TraceLevel level)
         {
@@ -28,6 +26,7 @@ namespace DatabaseLogging
             {
                 Message = message,
                 Date = DateTime.Now,
+                Level = level.ToString()
             };
             Context.Logs.Add(log);
             Context.SaveChanges();

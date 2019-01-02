@@ -1,18 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using ProjektTPA.Lib.Model;
-using ProjektTPA.Lib.Model.Enums;
+using BusinessLogic.Model;
+using ViewModel.Base;
 using ViewModel.Enums;
 
-namespace ViewModel.ViewModel
+namespace ViewModel.Tree
 {
     public class FieldTreeItem : TreeViewItem
     {
-        public FieldTreeItem(FieldModel fieldModel) : base(fieldModel.Name)
+        public FieldTreeItem(FieldModel fieldModel) : base(fieldModel.ToString())
         {
             TreeType = TreeTypeEnum.Field;
             FieldModel = fieldModel;
-            ResolveFullName();
+            //ResolveFullName();
             Children = PrepareChildrenInstance();
         }
 
@@ -40,10 +40,7 @@ namespace ViewModel.ViewModel
             }
         }
 
-        private void ResolveFullName()
-        {
-            Name = FieldModel.Access + " " + FieldModel.TypeModel.Name + " " + Name;
-        }
+
 
         public override string Name { get; set; }
         public FieldModel FieldModel { get; set; }

@@ -1,23 +1,23 @@
 ﻿using System.Collections.ObjectModel;
-using ProjektTPA.Lib.Model;
-using ProjektTPA.Lib.Model.Enums;
+using BusinessLogic.Model;
+using ViewModel.Base;
 using ViewModel.Enums;
 
-namespace ViewModel.ViewModel
+namespace ViewModel.Tree
 {
     public class PropertyTreeItem : TreeViewItem
     {
-        public PropertyTreeItem(PropertyModel propertyModel) : base(propertyModel.Name)
+        public PropertyTreeItem(PropertyModel propertyModel) : base(propertyModel.ToString())
         {
             TreeType = TreeTypeEnum.Property;
             Children = PrepareChildrenInstance();
             PropertyModel = propertyModel;
-            ResolveFullName();
+            //ResolveFullName();
         }
 
         private void ResolveFullName()
         {
-            Name = PropertyModel.Access + " " + PropertyModel.Type.Name + " " + Name;
+            //Name = PropertyModel.Access + " " + PropertyModel.Type.Name + " " + Name;
         }
 
         private PropertyModel PropertyModel { get; set; }

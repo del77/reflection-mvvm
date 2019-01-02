@@ -1,6 +1,6 @@
-﻿using ProjektTPA.Lib.Model;
+﻿using BusinessLogic.Model;
 
-namespace ProjektTPA.Lib.Utility
+namespace BusinessLogic.Interfaces
 {
     public interface IReflector
     {

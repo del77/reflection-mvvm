@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
-using Ninject;
-using ProjektTPA.Lib.Extensions;
-using ProjektTPA.Lib.Model.Enums;
+using System.Text;
+using DtoLayer.Enums;
 
-namespace ProjektTPA.Lib.Model
+namespace BusinessLogic.Model
 {
-    [DataContract(IsReference = true)]
-    public class TypeModel : Model
+    public class TypeModel
     {
         public static Dictionary<string, TypeModel> LoadedTypes = new Dictionary<string, TypeModel>();
 
-        public TypeModel(Type type) : base(type.Name)
-        { }
+        public TypeModel(Type type)
+        {
+            Name = type.Name;
+
+        }
         
 
         public static TypeModel GetTypeWithDetails(Type type)
@@ -27,7 +27,8 @@ namespace ProjektTPA.Lib.Model
             typeModel.DeclaringType = GetType(type.DeclaringType);
             typeModel.Constructors = MethodModel.EmitMethods(type.GetConstructors(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)).ToList();
             typeModel.Methods = MethodModel.EmitMethods(type.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)).ToList();
-            typeModel.NestedTypes = GetTypes(type.GetNestedTypes().Where(x => x.GetVisible()));
+            //typeModel.NestedTypes = GetTypes(type.GetNestedTypes().Where(x => x.GetVisible()));
+            typeModel.NestedTypes = GetTypesWithDetails(type.GetTypeInfo().DeclaredNestedTypes);
             typeModel.ImplementedInterfaces = GetTypes(type.GetInterfaces());
             typeModel.GenericArguments = type.IsGenericTypeDefinition ? TypeModel.GetTypesWithDetails(type.GetGenericArguments()) : null;
             if(typeModel.GenericArguments != null)
@@ -88,6 +89,7 @@ namespace ProjektTPA.Lib.Model
                 _sealed = SealedEnum.Sealed;
             if (type.IsAbstract)
                 _abstract = AbstractEnum.Abstract;
+            
             return new Tuple<AccessLevel, SealedEnum, AbstractEnum>(_access, _sealed, _abstract);
         }
 
@@ -130,8 +132,9 @@ namespace ProjektTPA.Lib.Model
         }
 
 
-        private TypeModel(string name, string namespaceName) : base(name)
+        private TypeModel(string name, string namespaceName)
         {
+            Name = name;
             NamespaceName = namespaceName;
         }
 
@@ -140,34 +143,71 @@ namespace ProjektTPA.Lib.Model
         {
             GenericArguments = genergicArguments.ToList();
         }
-        [DataMember]
+
+        public override string ToString()
+        {
+            if (Modifiers == null)
+                return Name;
+            StringBuilder builder = new StringBuilder();
+            builder.Append(Modifiers.Item1);
+            if (Modifiers.Item2 == SealedEnum.Sealed && Modifiers.Item3 == AbstractEnum.Abstract)
+            {
+                builder.Append(" ").Append(" static");
+            }
+            else
+            {
+                if (Modifiers.Item2 == SealedEnum.Sealed)
+                {
+                    builder.Append(" ").Append(Modifiers.Item2);
+                }
+
+                if (Modifiers.Item3 == AbstractEnum.Abstract)
+                {
+                    builder.Append(" ").Append(AbstractEnum.Abstract);
+                }
+            }
+
+            builder.Append(" ").Append(TypeKind.ToString()).Append(" ");
+            builder.Append(Name);
+            if (ImplementedInterfaces.Any())
+            {
+                builder.Append(" : ");
+                for (int i = 0; i < ImplementedInterfaces.Count() - 1; i++)
+                {
+                    builder.Append(ImplementedInterfaces.ElementAt(i).Name).Append(", ");
+                }
+
+
+                builder.Append(ImplementedInterfaces.Last().Name);
+                if (BaseType != null)
+                    builder.Append(", ").Append(BaseType.Name);
+            }
+            else if (BaseType != null)
+                builder.Append(" : ").Append(BaseType.Name);
+
+            return builder.ToString();
+        }
+
+        public string Name { get; set; }
         public TypeModel DeclaringType { get; set; }
-        [DataMember]
         public List<MethodModel> Constructors { get; set; }
-        [DataMember]
         public List<MethodModel> Methods { get; set; }
-        [DataMember]
         public List<TypeModel> NestedTypes { get; set; }
-        [DataMember]
         public List<TypeModel> ImplementedInterfaces { get; set; }
-        [DataMember]
         public List<TypeModel> GenericArguments { get; set; }
-        [DataMember]
         public List<FieldModel> Fields { get; set; }
-        [DataMember]
         public Tuple<AccessLevel, SealedEnum, AbstractEnum> Modifiers { get; set; }
-        [DataMember]
         public TypeModel BaseType { get; set; }
-        [DataMember]
         public List<PropertyModel> Properties { get; set; }
-        [DataMember]
         public TypeKind TypeKind { get; set; }
-        [DataMember]
         public List<TypeModel> Attributes { get; set; }
-        [DataMember]
         public string NamespaceName;
-        [DataMember]
         public bool Resolved { get; set; } = false;
+
+        public TypeModel()
+        {
+            
+        }
     }
     
 }

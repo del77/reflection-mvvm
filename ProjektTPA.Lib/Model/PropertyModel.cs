@@ -1,36 +1,30 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.Serialization;
-using ProjektTPA.Lib.Extensions;
-using ProjektTPA.Lib.Model.Enums;
+using BusinessLogic.Extensions;
+using DtoLayer.Enums;
 
-namespace ProjektTPA.Lib.Model
+namespace BusinessLogic.Model
 {
-    [DataContract(IsReference = true)]
-    public class PropertyModel : Model
+    public class PropertyModel
     {
-        public TypeModel TypeModel { get; set; }
+        //public TypeModel TypeModel { get; set; }
 
-        public PropertyModel(string name) : base(name)
+        public PropertyModel(string name)
         {
+            Name = name;
         }
-
-        [DataMember]
+        public string Name { get; set; }
         public List<TypeModel> Attributes { get; set; }
-        [DataMember]
         public AccessLevel Access { get; set; }
-        [DataMember]
         public MethodModel Getter { get; set; }
-        [DataMember]
         public MethodModel Setter { get; set; }
-        [DataMember]
         public TypeModel Type { get; set; }
 
 
         private PropertyModel(PropertyInfo prop, TypeModel typeModel) : this(prop.Name)
         {
-            TypeModel = typeModel;
+            //TypeModel = typeModel;
             Getter = prop.GetMethod == null ? null : new MethodModel(prop.GetMethod);
             Setter = prop.SetMethod == null ? null : new MethodModel(prop.SetMethod);
             Access = SetAccessLevel();
@@ -51,6 +45,16 @@ namespace ProjektTPA.Lib.Model
             return from prop in props
                 where prop.GetGetMethod().GetVisible() || prop.GetSetMethod().GetVisible()
                 select new PropertyModel(prop, TypeModel.GetType(prop.PropertyType));
+        }
+
+        public override string ToString()
+        {
+            return Access + " " +  Type.Name + " " + Name;
+        }
+
+        public PropertyModel()
+        {
+            
         }
     }
 }

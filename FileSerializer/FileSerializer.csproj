@@ -31,10 +31,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=8.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.8.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -44,13 +50,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSerializer.cs" />
+    <Compile Include="Model\AssemblyXml.cs" />
+    <Compile Include="Model\FieldXml.cs" />
+    <Compile Include="Model\MethodXml.cs" />
+    <Compile Include="Model\NamespaceXml.cs" />
+    <Compile Include="Model\PropertyXml.cs" />
+    <Compile Include="Model\TypeXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjektTPA.Lib\Model.csproj">
-      <Project>{5465E1D6-3EB7-47EC-8B2C-963ADF5126A8}</Project>
-      <Name>Model</Name>
+    <ProjectReference Include="..\DtoLayer\DtoLayer.csproj">
+      <Project>{A787E354-2339-4834-B6A9-FB495E2BF362}</Project>
+      <Name>DtoLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MEF\MEF.csproj">
+      <Project>{F1AF2B6D-BF02-4846-88E3-823AF9D833C4}</Project>
+      <Name>MEF</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

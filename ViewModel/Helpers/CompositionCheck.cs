@@ -6,8 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using ViewModel.ViewModel;
-using ViewModel.ViewModel.Logging;
+using BusinessLogic;
 
 namespace ViewModel.Helpers
 {
@@ -28,6 +27,12 @@ namespace ViewModel.Helpers
             importFields = fields.Where(x => x.CustomAttributes.Count(y => y.AttributeType.Name == "ImportAttribute" || y.AttributeType.Name == "ImportManyAttribute") != 0);
             neededInterfaces.AddRange(importFields.Select(x => x.FieldType.Name).ToList());
 
+            fields = typeof(ModelService).GetFields(BindingFlags.Instance | BindingFlags.NonPublic |
+                                                      BindingFlags.Public | BindingFlags.Static |
+                                                      BindingFlags.DeclaredOnly);
+            importFields = fields.Where(x => x.CustomAttributes.Count(y => y.AttributeType.Name == "ImportAttribute" || y.AttributeType.Name == "ImportManyAttribute") != 0);
+            neededInterfaces.AddRange(importFields.Select(x => x.FieldType.Name).ToList());
+
             List<Assembly> assemblies = new List<Assembly>();
             List<string> Files = new List<string>();
             for (int i = 0; i < directories.Count - 1; i++)
@@ -41,7 +46,7 @@ namespace ViewModel.Helpers
 
             foreach (var neededInterface in neededInterfaces)
             {
-                if (neededInterface == "IPathProvider" || neededInterface == "IReflector" || neededInterface == "ILoggingManager")
+                if (neededInterface == "IPathProvider" || neededInterface == "IReflector" || neededInterface == "ILoggingManager" || neededInterface == "ModelService")
                     continue;
                 bool found = false;
                 foreach (var assembly in assemblies)

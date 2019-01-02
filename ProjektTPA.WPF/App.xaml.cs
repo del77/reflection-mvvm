@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Windows;
+using ViewModel;
 using ViewModel.Helpers;
-using ViewModel.ViewModel;
 
 namespace ProjektTPA.WPF
 {
@@ -27,9 +29,17 @@ namespace ProjektTPA.WPF
             List<DirectoryCatalog> directories = new List<DirectoryCatalog>();
             NameValueCollection configDirectories = ConfigurationManager.GetSection("pluginDirectory") as NameValueCollection;
 
-            foreach (var key in configDirectories.AllKeys)
+            try
             {
-                directories.Add(new DirectoryCatalog(configDirectories[key]));
+                foreach (var key in configDirectories.AllKeys)
+                {
+                    directories.Add(new DirectoryCatalog(configDirectories[key]));
+                }
+            }
+            catch (DirectoryNotFoundException e)
+            {
+                MessageBox.Show(e.Message);
+                System.Windows.Application.Current.Shutdown();
             }
 
             directories.Add(new DirectoryCatalog(@"."));
@@ -58,13 +68,15 @@ namespace ProjektTPA.WPF
                     {
                         MessageBox.Show(missingModule + " plugin missing!");
                     }
-                    System.Windows.Application.Current.Shutdown();
                 }
                 else
                 {
-                    throw;
+                    MessageBox.Show("Only one plugin of each type is allowed.");
                 }
+
+                Environment.Exit(-1);
             }
+
         }
     }
 }

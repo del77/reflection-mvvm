@@ -2,7 +2,8 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
-using ViewModel.ViewModel;
+using ViewModel;
+using ViewModel.Base;
 
 namespace ProjektTPA.CommandLine
 {
@@ -25,7 +26,7 @@ namespace ProjektTPA.CommandLine
             Print();
             //mainVM.Nodes.CollectionChanged += Nodes_CollectionChanged;
             //mainVM.LoadCommand.Execute(null);
-            
+
 
         }
 
@@ -53,7 +54,7 @@ namespace ProjektTPA.CommandLine
             AggregateCatalog catalog = new AggregateCatalog();
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(PathProvider).Assembly));
             catalog.Catalogs.Add(new AssemblyCatalog(typeof(MainViewModel).Assembly));
-            
+
             container = new CompositionContainer(catalog);
             try
             {
@@ -74,7 +75,7 @@ namespace ProjektTPA.CommandLine
                 {
                     mainVM.SaveCommand.Execute(null);
                 }
-                if (id == id2 && node.Children.Count >0)
+                if (id == id2 && node.Children.Count > 0)
                 {
                     node.IsExpanded = !node.IsExpanded;
                 }
@@ -83,12 +84,12 @@ namespace ProjektTPA.CommandLine
                     Console.Write("\t");
                 }
 
-                string expand = node.Children.Count == 0 ? "[x]" : node.IsExpanded ? "[-]" : "[+]"; 
-                Console.WriteLine(id++ + ". " + expand+node.Name);
+                string expand = node.Children.Count == 0 ? "[x]" : node.IsExpanded ? "[-]" : "[+]";
+                Console.WriteLine(id++ + ". " + expand + node.Name);
                 if (node.IsExpanded)
                 {
-                    PrintTree(node.Children, indents+1);
-                } 
+                    PrintTree(node.Children, indents + 1);
+                }
             }
         }
 

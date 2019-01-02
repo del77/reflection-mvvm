@@ -1,16 +1,16 @@
 ﻿using System.Collections.ObjectModel;
-using ProjektTPA.Lib.Model;
-using ProjektTPA.Lib.Model.Enums;
+using BusinessLogic.Model;
+using ViewModel.Base;
 using ViewModel.Enums;
 
-namespace ViewModel.ViewModel
+namespace ViewModel.Tree
 {
     public class AssemblyTreeItem : TreeViewItem
     {
         public AssemblyModel AssemblyModel { get; set; }
         public AssemblyTreeItem(AssemblyModel assembly) : base(assembly.Name)
         {
-            //NamespacesModels = assembly.NamespaceModels;
+            //NamespacesModels = assembly.Namespaces;
             TreeType = TreeTypeEnum.Assembly;
             AssemblyModel = assembly;
             Children = PrepareChildrenInstance();
@@ -19,7 +19,7 @@ namespace ViewModel.ViewModel
         public sealed override ObservableCollection<TreeViewItem> PrepareChildrenInstance()
         {
             var ret = new ObservableCollection<TreeViewItem>();
-            if (AssemblyModel.NamespaceModels.Count != 0)
+            if (AssemblyModel.Namespaces.Count != 0)
                 ret.Add(null);
             return ret;
         }
@@ -29,7 +29,7 @@ namespace ViewModel.ViewModel
         public override void BuildMyself()
         {
             base.BuildMyself();
-            foreach (var namespacesModel in AssemblyModel.NamespaceModels)
+            foreach (var namespacesModel in AssemblyModel.Namespaces)
             {
                 Children.Add(new NamespaceTreeItem(namespacesModel));
             }

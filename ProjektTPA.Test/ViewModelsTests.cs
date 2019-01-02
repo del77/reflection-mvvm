@@ -3,19 +3,19 @@ using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Hosting;
 using System.Diagnostics;
 using System.Linq;
-using ProjektTPA.Lib;
-using ProjektTPA.Lib.Logging;
-using ProjektTPA.Lib.Model;
-using ProjektTPA.Lib.Utility;
+using BusinessLogic;
+using BusinessLogic.Interfaces;
+using MEF;
+using ViewModel;
 using ViewModel.Interfaces;
-using ViewModel.ViewModel;
+using ViewModel.Tree;
 using Xunit;
 
 namespace ProjektTPA.Test
 {
     public class ViewModelsTests
     {
-        string path = AppDomain.CurrentDomain.BaseDirectory + "TestLibrary.dll";
+        string path = AppDomain.CurrentDomain.BaseDirectory + "\\TestLibrary.dll";
         [Import(typeof(MainViewModel))]
         private MainViewModel mainViewModel = new MainViewModel();
 
@@ -62,7 +62,7 @@ namespace ProjektTPA.Test
         public void Should_Execute_Loggers_Log_Method()
         {
             Manager manager = mainViewModel.loggingManager as Manager;
-            //mainViewModel.logger = manager;
+            mainViewModel.loggingManager = manager;
             Assert.Equal(0, manager.messagesSent);
             LoadAsync();
             Assert.Equal(2, manager.messagesSent);
@@ -116,12 +116,12 @@ namespace ProjektTPA.Test
     [Export(typeof(ISerializer))]
     class Serializer : ISerializer
     {
-        public void Serialize(AssemblyModel assemblyModel, string path)
+        public void Serialize(object assemblyModel)
         {
             
         }
 
-        public AssemblyModel Deserialize(string path)
+        public object Deserialize()
         {
             return null;
         }
