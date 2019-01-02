@@ -26,7 +26,7 @@
       <Category Ref="CodeMap_TestProject" />
       <Category Ref="FileSystem.Category.FileOfType.dll" />
     </Node>
-    <Node Id="@26" Category="CodeSchema_Assembly" Bounds="286.733300746056,233.571380000088,161.493333333333,25" CodeSchemaProperty_StrongName="ViewModelTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(VsSolution)\UnitTestProject1\bin\Debug\ViewModelTests.dll" Group="Collapsed" Label="ViewModelTests.dll" Visibility="Hidden">
+    <Node Id="@26" Category="CodeSchema_Assembly" Bounds="286.733300746056,233.571380000088,161.493333333333,25" CodeSchemaProperty_StrongName="ViewModelTests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" DelayedChildNodesState="NotFetched" DelayedCrossGroupLinksState="Fetched" FilePath="$(b7c31a14-edce-4b2f-a9cb-b4bab1394b26.OutputPath)" Group="Collapsed" Label="ViewModelTests.dll" Visibility="Hidden">
       <Category Ref="CodeMap_TestAsset" />
       <Category Ref="CodeMap_TestProject" />
       <Category Ref="FileSystem.Category.FileOfType.dll" />
@@ -45,7 +45,7 @@
       <Category Ref="CodeMap_ProjectReference" />
       <Category Ref="CodeSchema_Calls" />
     </Link>
-    <Link Source="(@2)" Target="@12" Category="References" Bounds="408.782936102829,-43.2714362597463,4.74746524161804,149.541302896885" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="26">
+    <Link Source="(@2)" Target="@12" Category="References" Bounds="408.782936102829,-43.2714362597463,4.74746524161753,149.541302896885" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="26">
       <Category Ref="CodeMap_ProjectReference" />
       <Category Ref="CodeSchema_Calls" />
       <Category Ref="CodeSchema_FieldRead" />
@@ -53,7 +53,7 @@
     </Link>
     <Link Source="@10" Target="@27" Category="Contains" FetchingParent="@10" />
     <Link Source="@10" Target="@6" Category="CodeMap_ProjectReference" Bounds="87.8468151418147,275.295191017062,221.136223363893,49.0796238345682" />
-    <Link Source="@12" Target="@4" Category="References" Bounds="414.682891499544,140.265334681494,5.59829693635322,148.866561461268" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="145">
+    <Link Source="@12" Target="@4" Category="References" Bounds="414.682891499543,140.265334681494,5.59829693635328,148.866561461268" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="145">
       <Category Ref="CodeMap_ProjectReference" />
       <Category Ref="CodeSchema_Calls" />
       <Category Ref="CodeSchema_ReturnTypeLink" />
@@ -102,11 +102,11 @@
       <Category Ref="CodeMap_ProjectReference" />
     </Link>
     <Link Source="@27" Target="@6" Category="Implements" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="1" />
-    <Link Source="@4" Target="@14" Category="References" Bounds="241.945411866408,323.12553888653,148.350012292276,60.2186044885102" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="101">
+    <Link Source="@4" Target="@14" Category="References" Bounds="241.945411866408,323.12553888653,148.350012292276,60.2186044885104" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="101">
       <Category Ref="CodeMap_ProjectReference" />
       <Category Ref="CodeSchema_ReturnTypeLink" />
     </Link>
-    <Link Source="@4" Target="@6" Category="References" Bounds="360.29972626143,323.12553888653,49.8305318128329,56.8362947908752" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="5">
+    <Link Source="@4" Target="@6" Category="References" Bounds="360.29972626143,323.12553888653,49.8305318128323,56.8362947908753" IsSourceVirtualized="True" IsTargetVirtualized="True" Weight="5">
       <Category Ref="CodeMap_ProjectReference" />
       <Category Ref="CodeSchema_Calls" />
     </Link>
@@ -159,7 +159,7 @@
     <Property Id="FilePath" Label="File Path" Description="File Path" DataType="System.String" />
     <Property Id="Group" Label="Group" Description="Display the node as a group" DataType="Microsoft.VisualStudio.GraphModel.GraphGroupStyle" />
     <Property Id="GroupLabel" DataType="System.String" />
-    <Property Id="Icon" DataType="System.String" />
+    <Property Id="Icon" Label="Icon" Description="Icon" DataType="System.String" />
     <Property Id="IncomingActionLabel" Label="IncomingActionLabel" Description="IncomingActionLabel" DataType="System.String" />
     <Property Id="IsContainment" DataType="System.Boolean" />
     <Property Id="IsEnabled" DataType="System.Boolean" />
@@ -207,7 +207,7 @@
     <Alias n="22" Id="(@21)" />
     <Alias n="23" Uri="Assembly=$(782d187f-1894-48e0-be16-85c7543936ad.OutputPathUri)" />
     <Alias n="24" Id="(@23)" />
-    <Alias n="25" Uri="Assembly=$(VsSolutionUri)/UnitTestProject1/bin/Debug/ViewModelTests.dll" />
+    <Alias n="25" Uri="Assembly=$(b7c31a14-edce-4b2f-a9cb-b4bab1394b26.OutputPathUri)" />
     <Alias n="26" Id="(@25)" />
     <Alias n="27" Id="(@9 Namespace=DatabaseLogging)" />
   </IdentifierAliases>
@@ -429,33 +429,34 @@
     </Style>
   </Styles>
   <Paths>
-    <Path Id="0a39b37f-0ae3-4aca-bfab-393e633ec54a.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\BusinessLogicTests\bin\Debug\BusinessLogicTests.dll" />
-    <Path Id="0a39b37f-0ae3-4aca-bfab-393e633ec54a.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/BusinessLogicTests/bin/Debug/BusinessLogicTests.dll" />
-    <Path Id="0c43e0fc-c305-4665-b748-2db97976817f.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\DatabaseLogging\bin\Debug\DatabaseLogging.dll" />
-    <Path Id="0c43e0fc-c305-4665-b748-2db97976817f.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/DatabaseLogging/bin/Debug/DatabaseLogging.dll" />
-    <Path Id="393a307d-b654-4112-b94c-7388aade9ead.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\FileLogging\bin\Debug\FileLogging.dll" />
-    <Path Id="393a307d-b654-4112-b94c-7388aade9ead.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/FileLogging/bin/Debug/FileLogging.dll" />
-    <Path Id="4ad521ed-3a17-4a9a-9279-3a93f46d9d93.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\FileSerializer\bin\Debug\FileSerializer.dll" />
-    <Path Id="4ad521ed-3a17-4a9a-9279-3a93f46d9d93.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/FileSerializer/bin/Debug/FileSerializer.dll" />
-    <Path Id="5465e1d6-3eb7-47ec-8b2c-963adf5126a8.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\ProjektTPA.Lib\bin\Debug\netstandard2.0\BusinessLogic.dll" />
-    <Path Id="5465e1d6-3eb7-47ec-8b2c-963adf5126a8.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/ProjektTPA.Lib/bin/Debug/netstandard2.0/BusinessLogic.dll" />
-    <Path Id="782d187f-1894-48e0-be16-85c7543936ad.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\DatabaseTests\bin\Debug\DatabaseTests.dll" />
-    <Path Id="782d187f-1894-48e0-be16-85c7543936ad.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/DatabaseTests/bin/Debug/DatabaseTests.dll" />
-    <Path Id="864e7feb-d232-4b94-924a-ce601ac6409f.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\ConsoleApplication\bin\Debug\ConsoleApplication.exe" />
-    <Path Id="864e7feb-d232-4b94-924a-ce601ac6409f.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/ConsoleApplication/bin/Debug/ConsoleApplication.exe" />
-    <Path Id="a787e354-2339-4834-b6a9-fb495e2bf362.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\DtoLayer\bin\Debug\DtoLayer.dll" />
-    <Path Id="a787e354-2339-4834-b6a9-fb495e2bf362.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/DtoLayer/bin/Debug/DtoLayer.dll" />
-    <Path Id="c3ed5c79-20ea-4b7b-a9ab-1ca3f2ceb826.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\ProjektTPA.WPF\bin\Debug\ProjektTPA.WPF.exe" />
-    <Path Id="c3ed5c79-20ea-4b7b-a9ab-1ca3f2ceb826.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/ProjektTPA.WPF/bin/Debug/ProjektTPA.WPF.exe" />
-    <Path Id="c5779243-e807-4228-9b67-932489d7dc35.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\FileTests\bin\Debug\FileTests.dll" />
-    <Path Id="c5779243-e807-4228-9b67-932489d7dc35.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/FileTests/bin/Debug/FileTests.dll" />
-    <Path Id="d8068c2e-5257-4977-acc7-433c35338ed8.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\DatabaseSerializer\bin\Debug\DatabaseSerializer.dll" />
-    <Path Id="d8068c2e-5257-4977-acc7-433c35338ed8.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/DatabaseSerializer/bin/Debug/DatabaseSerializer.dll" />
-    <Path Id="e180f714-7529-4727-b082-715a08ab3681.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\ViewModel\bin\Debug\ViewModel.dll" />
-    <Path Id="e180f714-7529-4727-b082-715a08ab3681.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/ViewModel/bin/Debug/ViewModel.dll" />
-    <Path Id="f1af2b6d-bf02-4846-88e3-823af9d833c4.OutputPath" Value="C:\Users\del\Desktop\tpa\xD\tpa\MEF\bin\Debug\MEF.dll" />
-    <Path Id="f1af2b6d-bf02-4846-88e3-823af9d833c4.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa/MEF/bin/Debug/MEF.dll" />
-    <Path Id="VsSolution" Value="C:\Users\del\Desktop\tpa\xD\tpa" />
-    <Path Id="VsSolutionUri" Value="file:///C:/Users/del/Desktop/tpa/xD/tpa" />
+    <Path Id="0a39b37f-0ae3-4aca-bfab-393e633ec54a.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\BusinessLogicTests\bin\Debug\BusinessLogicTests.dll" />
+    <Path Id="0a39b37f-0ae3-4aca-bfab-393e633ec54a.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/BusinessLogicTests/bin/Debug/BusinessLogicTests.dll" />
+    <Path Id="0c43e0fc-c305-4665-b748-2db97976817f.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\DatabaseLogging\bin\Debug\DatabaseLogging.dll" />
+    <Path Id="0c43e0fc-c305-4665-b748-2db97976817f.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/DatabaseLogging/bin/Debug/DatabaseLogging.dll" />
+    <Path Id="393a307d-b654-4112-b94c-7388aade9ead.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\FileLogging\bin\Debug\FileLogging.dll" />
+    <Path Id="393a307d-b654-4112-b94c-7388aade9ead.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/FileLogging/bin/Debug/FileLogging.dll" />
+    <Path Id="4ad521ed-3a17-4a9a-9279-3a93f46d9d93.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\FileSerializer\bin\Debug\FileSerializer.dll" />
+    <Path Id="4ad521ed-3a17-4a9a-9279-3a93f46d9d93.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/FileSerializer/bin/Debug/FileSerializer.dll" />
+    <Path Id="5465e1d6-3eb7-47ec-8b2c-963adf5126a8.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\ProjektTPA.Lib\bin\Debug\netstandard2.0\BusinessLogic.dll" />
+    <Path Id="5465e1d6-3eb7-47ec-8b2c-963adf5126a8.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/ProjektTPA.Lib/bin/Debug/netstandard2.0/BusinessLogic.dll" />
+    <Path Id="782d187f-1894-48e0-be16-85c7543936ad.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\DatabaseTests\bin\Debug\DatabaseTests.dll" />
+    <Path Id="782d187f-1894-48e0-be16-85c7543936ad.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/DatabaseTests/bin/Debug/DatabaseTests.dll" />
+    <Path Id="864e7feb-d232-4b94-924a-ce601ac6409f.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\ConsoleApplication\bin\Debug\ConsoleApplication.exe" />
+    <Path Id="864e7feb-d232-4b94-924a-ce601ac6409f.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/ConsoleApplication/bin/Debug/ConsoleApplication.exe" />
+    <Path Id="a787e354-2339-4834-b6a9-fb495e2bf362.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\DtoLayer\bin\Debug\DtoLayer.dll" />
+    <Path Id="a787e354-2339-4834-b6a9-fb495e2bf362.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/DtoLayer/bin/Debug/DtoLayer.dll" />
+    <Path Id="b7c31a14-edce-4b2f-a9cb-b4bab1394b26.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\UnitTestProject1\bin\Debug\ViewModelTests.dll" />
+    <Path Id="b7c31a14-edce-4b2f-a9cb-b4bab1394b26.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/UnitTestProject1/bin/Debug/ViewModelTests.dll" />
+    <Path Id="c3ed5c79-20ea-4b7b-a9ab-1ca3f2ceb826.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\ProjektTPA.WPF\bin\Debug\ProjektTPA.WPF.exe" />
+    <Path Id="c3ed5c79-20ea-4b7b-a9ab-1ca3f2ceb826.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/ProjektTPA.WPF/bin/Debug/ProjektTPA.WPF.exe" />
+    <Path Id="c5779243-e807-4228-9b67-932489d7dc35.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\FileTests\bin\Debug\FileTests.dll" />
+    <Path Id="c5779243-e807-4228-9b67-932489d7dc35.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/FileTests/bin/Debug/FileTests.dll" />
+    <Path Id="d8068c2e-5257-4977-acc7-433c35338ed8.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\DatabaseSerializer\bin\Debug\DatabaseSerializer.dll" />
+    <Path Id="d8068c2e-5257-4977-acc7-433c35338ed8.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/DatabaseSerializer/bin/Debug/DatabaseSerializer.dll" />
+    <Path Id="e180f714-7529-4727-b082-715a08ab3681.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\ViewModel\bin\Debug\ViewModel.dll" />
+    <Path Id="e180f714-7529-4727-b082-715a08ab3681.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/ViewModel/bin/Debug/ViewModel.dll" />
+    <Path Id="f1af2b6d-bf02-4846-88e3-823af9d833c4.OutputPath" Value="C:\Users\del\Desktop\tpa\aab\tpa\MEF\bin\Debug\MEF.dll" />
+    <Path Id="f1af2b6d-bf02-4846-88e3-823af9d833c4.OutputPathUri" Value="file:///C:/Users/del/Desktop/tpa/aab/tpa/MEF/bin/Debug/MEF.dll" />
+    <Path Id="VsSolution" Value="C:\Users\del\Desktop\tpa\aab\tpa" />
   </Paths>
 </DirectedGraph>
