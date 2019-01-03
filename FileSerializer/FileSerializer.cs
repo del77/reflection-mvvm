@@ -30,10 +30,9 @@ namespace FileSerializer
                 cfg.CreateMap<TypeXml, TypeDto>().ReverseMap();
             });
         }
-        public void Serialize(object model)
+        public void Serialize(AssemblyDto model)
         {
-            AssemblyDto assemblyDto = (AssemblyDto) model;
-            AssemblyXml assemblyXml = Mapper.Map<AssemblyXml>(assemblyDto);
+            AssemblyXml assemblyXml = Mapper.Map<AssemblyXml>(model);
 
             DataContractSerializer dataContractSerializer =
                 new DataContractSerializer(typeof(AssemblyXml));
@@ -44,7 +43,7 @@ namespace FileSerializer
             }
         }
 
-        public object Deserialize()
+        public AssemblyDto Deserialize()
         {
             AssemblyXml ret;
             DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(AssemblyXml));

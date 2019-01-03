@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.Composition;
+using BusinessLogic.Model;
+using DtoLayer;
 using MEF;
 
 namespace ViewModelTests
@@ -6,12 +8,12 @@ namespace ViewModelTests
     [Export(typeof(ISerializer))]
     class Serializer : ISerializer
     {
-        public void Serialize(object assemblyModel)
+        public void Serialize(AssemblyDto assemblyModel)
         {
 
         }
 
-        public object Deserialize()
+        public AssemblyDto Deserialize()
         {
             return null;
         }

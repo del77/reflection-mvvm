@@ -21,7 +21,7 @@ namespace BusinessLogic
 
         public void Save(AssemblyModel model)
         {
-            var assemblyDto = _mapper.Map<AssemblyDto>(model);
+            AssemblyDto assemblyDto = _mapper.Map<AssemblyDto>(model);
             serializer.Serialize(assemblyDto);
         }
 

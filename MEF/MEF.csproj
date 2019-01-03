@@ -45,5 +45,11 @@
     <Compile Include="ISerializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DtoLayer\DtoLayer.csproj">
+      <Project>{A787E354-2339-4834-B6A9-FB495E2BF362}</Project>
+      <Name>DtoLayer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

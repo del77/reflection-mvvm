@@ -1,8 +1,10 @@
-﻿namespace MEF
+﻿using DtoLayer;
+
+namespace MEF
 {
     public interface ISerializer
     {
-        void Serialize(object model);
-        object Deserialize();
+        void Serialize(AssemblyDto model);
+        AssemblyDto Deserialize();
     }
 }

@@ -67,6 +67,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DtoLayer\DtoLayer.csproj">
+      <Project>{A787E354-2339-4834-B6A9-FB495E2BF362}</Project>
+      <Name>DtoLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MEF\MEF.csproj">
       <Project>{F1AF2B6D-BF02-4846-88E3-823AF9D833C4}</Project>
       <Name>MEF</Name>

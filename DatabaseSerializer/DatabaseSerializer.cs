@@ -27,7 +27,7 @@ namespace DatabaseSerializer
             });
         }
 
-        public void Serialize(object model)
+        public void Serialize(AssemblyDto model)
         {
             context.Assemblies.RemoveRange(context.Assemblies);
             context.Fields.RemoveRange(context.Fields);
@@ -36,14 +36,13 @@ namespace DatabaseSerializer
             context.Properties.RemoveRange(context.Properties);
             context.Types.RemoveRange(context.Types);
 
-            AssemblyDto assemblyDto = (AssemblyDto)model;
-            AssemblyDb assemblyDb = Mapper.Map<AssemblyDb>(assemblyDto);
+            AssemblyDb assemblyDb = Mapper.Map<AssemblyDb>(model);
 
             context.Assemblies.Add(assemblyDb);
             context.SaveChanges();
         }
 
-        public object Deserialize()
+        public AssemblyDto Deserialize()
         {
             context.Namespaces
                 .Include(x => x.Namespaces)
