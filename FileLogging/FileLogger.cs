@@ -14,7 +14,7 @@ namespace FileLogging
         public FileLogger()
         {
             var loggingSettings = ConfigurationManager.AppSettings;
-            fileName = loggingSettings["fileName"];
+            fileName = loggingSettings["logsFileName"];
         }
 
         public void Log(string message, TraceLevel level)

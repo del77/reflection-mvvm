@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -19,7 +20,8 @@ namespace FileSerializer
         private string path;
         public FileSerializer()
         {
-            path = "serialized.xml";
+            var loggingSettings = ConfigurationManager.AppSettings;
+            path = loggingSettings["serializerFileName"];
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<AssemblyXml, AssemblyDto>().ReverseMap();
@@ -30,7 +32,7 @@ namespace FileSerializer
                 cfg.CreateMap<TypeXml, TypeDto>().ReverseMap();
             });
         }
-        public void Serialize(AssemblyDto model)
+        public void Save(AssemblyDto model)
         {
             AssemblyXml assemblyXml = Mapper.Map<AssemblyXml>(model);
 
@@ -43,7 +45,7 @@ namespace FileSerializer
             }
         }
 
-        public AssemblyDto Deserialize()
+        public AssemblyDto Load()
         {
             AssemblyXml ret;
             DataContractSerializer dataContractSerializer = new DataContractSerializer(typeof(AssemblyXml));

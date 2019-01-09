@@ -7,7 +7,8 @@ namespace DatabaseSerializer
 {
     public class DatabaseSerializerContext : DbContext
     {
-        public DatabaseSerializerContext() : base("SerializingDatabase")
+        //public DatabaseSerializerContext() : base("SerializingDatabase")
+        public DatabaseSerializerContext() : base("SerializerConnectingString")
         {
             Database.SetInitializer<DatabaseSerializerContext>(new DropCreateDatabaseIfModelChanges<DatabaseSerializerContext>());
         }

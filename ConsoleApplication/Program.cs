@@ -169,6 +169,7 @@ namespace ConsoleApplication
                         Thread.Sleep(300);
                     }
                     Console.Clear();
+                    id = 1;
                 }
                 if (id == id2 && node.Children.Count > 0)
                 {

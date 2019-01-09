@@ -8,12 +8,12 @@ namespace ViewModelTests
     [Export(typeof(ISerializer))]
     class Serializer : ISerializer
     {
-        public void Serialize(AssemblyDto assemblyModel)
+        public void Save(AssemblyDto assemblyModel)
         {
 
         }
 
-        public AssemblyDto Deserialize()
+        public AssemblyDto Load()
         {
             return null;
         }

@@ -112,6 +112,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Databases\Databases.csproj">
+      <Project>{2cf2cdcc-5f8d-42a6-a853-7da251854b5d}</Project>
+      <Name>Databases</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ViewModel\ViewModel.csproj">
       <Project>{E180F714-7529-4727-B082-715A08AB3681}</Project>
       <Name>ViewModel</Name>

@@ -22,12 +22,12 @@ namespace BusinessLogic
         public void Save(AssemblyModel model)
         {
             AssemblyDto assemblyDto = _mapper.Map<AssemblyDto>(model);
-            serializer.Serialize(assemblyDto);
+            serializer.Save(assemblyDto);
         }
 
         public AssemblyModel Load()
         {
-            AssemblyDto loaded = (AssemblyDto)serializer.Deserialize();
+            AssemblyDto loaded = (AssemblyDto)serializer.Load();
             AssemblyModel assemblyModel = _mapper.Map<AssemblyModel>(loaded);
             return assemblyModel;
         }

@@ -10,5 +10,6 @@ namespace DatabaseSerializer.Model
         public TypeDb TypeModel { get; set; }
         public List<TypeDb> Attributes { get; set; }
         public AccessLevel Access { get; set; }
+        public bool IsReadOnly { get; set; }
     }
 }

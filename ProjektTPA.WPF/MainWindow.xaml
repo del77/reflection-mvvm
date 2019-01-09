@@ -27,9 +27,9 @@
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>
-        <Button Content="Deserialize" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="210" Command="{Binding DeserializeCommand}"/>
+        <Button Content="Load" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="210" Command="{Binding DeserializeCommand}"/>
         <Button Content="Reflect" HorizontalAlignment="Left" Margin="243,10,0,0" VerticalAlignment="Top" Width="291" Command="{Binding LoadCommand}"/>
-        <Button Content="Serialize" HorizontalAlignment="Left" Margin="559,10,0,0" VerticalAlignment="Top" Width="148" Command="{Binding SaveCommand}"/>
+        <Button Content="Save" HorizontalAlignment="Left" Margin="559,10,0,0" VerticalAlignment="Top" Width="148" Command="{Binding SaveCommand}"/>
         <TextBlock HorizontalAlignment="Left" Margin="723,11,0,0" TextWrapping="Wrap" Text="Working..." Visibility="{Binding Working, Converter={StaticResource BoolToVis}}" VerticalAlignment="Top"/>
 
     </Grid>

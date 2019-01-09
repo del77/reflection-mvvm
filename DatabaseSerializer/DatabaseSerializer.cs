@@ -27,7 +27,7 @@ namespace DatabaseSerializer
             });
         }
 
-        public void Serialize(AssemblyDto model)
+        public void Save(AssemblyDto model)
         {
             context.Assemblies.RemoveRange(context.Assemblies);
             context.Fields.RemoveRange(context.Fields);
@@ -42,7 +42,7 @@ namespace DatabaseSerializer
             context.SaveChanges();
         }
 
-        public AssemblyDto Deserialize()
+        public AssemblyDto Load()
         {
             context.Namespaces
                 .Include(x => x.Namespaces)

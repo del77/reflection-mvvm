@@ -61,6 +61,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Databases\Databases.csproj">
+      <Project>{2cf2cdcc-5f8d-42a6-a853-7da251854b5d}</Project>
+      <Name>Databases</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ViewModel\ViewModel.csproj">
       <Project>{e180f714-7529-4727-b082-715a08ab3681}</Project>
       <Name>ViewModel</Name>

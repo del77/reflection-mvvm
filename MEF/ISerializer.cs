@@ -4,7 +4,7 @@ namespace MEF
 {
     public interface ISerializer
     {
-        void Serialize(AssemblyDto model);
-        AssemblyDto Deserialize();
+        void Save(AssemblyDto model);
+        AssemblyDto Load();
     }
 }

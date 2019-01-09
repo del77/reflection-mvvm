@@ -63,7 +63,7 @@ namespace BusinessLogic.Model
         private IEnumerable<FieldModel> EmitParameters(IEnumerable<ParameterInfo> parms)
         {
             return from parm in parms
-                select new FieldModel(parm.GetCustomAttributes(false), parm.Name, TypeModel.GetType(parm.ParameterType));
+                select new FieldModel(parm.GetCustomAttributes(false), parm.Name, false, false, TypeModel.GetType(parm.ParameterType));
         }
 
         private TypeModel EmitReturnType(MethodBase method)

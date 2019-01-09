@@ -27,9 +27,9 @@ namespace BusinessLogic.Model
             //TypeModel = typeModel;
             Getter = prop.GetMethod == null ? null : new MethodModel(prop.GetMethod);
             Setter = prop.SetMethod == null ? null : new MethodModel(prop.SetMethod);
-            Access = SetAccessLevel();
-            Type = Getter.ReturnType;
+            Type = typeModel;
             Attributes = prop.GetCustomAttributes(false).Select(x => TypeModel.GetType(x.GetType())).ToList();
+            Access = SetAccessLevel();
         }
 
         private AccessLevel SetAccessLevel()
@@ -43,7 +43,7 @@ namespace BusinessLogic.Model
         public static IEnumerable<PropertyModel> EmitProperties(PropertyInfo[] props)
         {
             return from prop in props
-                where prop.GetGetMethod().GetVisible() || prop.GetSetMethod().GetVisible()
+                //where prop.GetGetMethod().GetVisible() || prop.GetSetMethod().GetVisible()
                 select new PropertyModel(prop, TypeModel.GetType(prop.PropertyType));
         }
 

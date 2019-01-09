@@ -26,7 +26,8 @@ namespace BusinessLogic.Model
             typeModel.Resolved = true;
             typeModel.DeclaringType = GetType(type.DeclaringType);
             typeModel.Constructors = MethodModel.EmitMethods(type.GetConstructors(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance)).ToList();
-            typeModel.Methods = MethodModel.EmitMethods(type.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)).ToList();
+            typeModel.Properties = PropertyModel.EmitProperties(type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)).ToList();
+            typeModel.Methods = MethodModel.EmitMethods(type.GetMethods(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly).Where(y => typeModel.Properties.Select(x => x.Getter.Name).Contains(y.Name) == false && typeModel.Properties.Select(x => x.Setter.Name).Contains(y.Name) == false)).ToList();
             //typeModel.NestedTypes = GetTypes(type.GetNestedTypes().Where(x => x.GetVisible()));
             typeModel.NestedTypes = GetTypesWithDetails(type.GetTypeInfo().DeclaredNestedTypes);
             typeModel.ImplementedInterfaces = GetTypes(type.GetInterfaces());
@@ -40,7 +41,7 @@ namespace BusinessLogic.Model
             }
             typeModel.Modifiers = typeModel.EmitModifiers(type);
             typeModel.BaseType = typeModel.EmitExtends(type.BaseType);
-            typeModel.Properties = PropertyModel.EmitProperties(type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static | BindingFlags.DeclaredOnly)).ToList();
+        
             typeModel.TypeKind = GetTypeKind(type);
             typeModel.Fields = typeModel.EmitFields(type.GetFields(BindingFlags.NonPublic | BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Static | BindingFlags.Instance));
             typeModel.Attributes = type.GetCustomAttributes(false).Select(x => GetType(x.GetType())).ToList();
@@ -51,7 +52,7 @@ namespace BusinessLogic.Model
         private List<FieldModel> EmitFields(IEnumerable<FieldInfo> fields)
         {
             return (from field in fields
-                select new FieldModel(field.GetCustomAttributes(false), field.Name, GetType(field.FieldType))).ToList();
+                select new FieldModel(field.GetCustomAttributes(false), field.Name, field.IsPrivate, field.IsInitOnly, GetType(field.FieldType))).ToList();
             //select new FieldModel(field.GetCustomAttributes(false), field.Name, GetTypeWithDetails(field.FieldType))).ToList();
         }
 
@@ -83,14 +84,31 @@ namespace BusinessLogic.Model
                 _access = AccessLevel.Public;
             else if (type.IsNestedFamily)
                 _access = AccessLevel.Protected;
-            else if (type.IsNestedFamANDAssem)
+            //else if (type.IsNestedFamANDAssem)
+            else if(IsInternal(type))
+            {
                 _access = AccessLevel.Internal;
+            }
             if (type.IsSealed)
                 _sealed = SealedEnum.Sealed;
             if (type.IsAbstract)
                 _abstract = AbstractEnum.Abstract;
             
             return new Tuple<AccessLevel, SealedEnum, AbstractEnum>(_access, _sealed, _abstract);
+        }
+
+        private bool IsInternal(Type t)
+        {
+            return !t.IsVisible
+                && !t.IsPublic
+                && t.IsNotPublic
+                && !t.IsNested
+                && !t.IsNestedPublic
+                && !t.IsNestedFamily
+                && !t.IsNestedPrivate
+                && !t.IsNestedAssembly
+                && !t.IsNestedFamORAssem
+                && !t.IsNestedFamANDAssem;
         }
 
         public static TypeModel GetType(Type type)

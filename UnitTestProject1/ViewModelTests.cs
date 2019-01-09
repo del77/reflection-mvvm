@@ -79,13 +79,10 @@ namespace ViewModelTests
             Assert.AreEqual(1, namespaceVM.Children.Count);
             TypeTreeItem typeVM = (TypeTreeItem)namespaceVM.Children.ElementAt(0);
             typeVM.BuildMyself();
-            Assert.AreEqual(4, typeVM.Children.Count);
+            Assert.AreEqual(3, typeVM.Children.Count);
             MethodTreeItem methodVM = (MethodTreeItem)typeVM.Children.ElementAt(0);
-            MethodTreeItem methodVM2 = (MethodTreeItem)typeVM.Children.ElementAt(1);
-            methodVM2.BuildMyself();
-            methodVM2.BuildMyself();
+            methodVM.BuildMyself();
             Assert.AreEqual(0, methodVM.Children.Count);
-            Assert.AreEqual(2, methodVM2.Children.Count);
         }
 
         private void LoadAsync()

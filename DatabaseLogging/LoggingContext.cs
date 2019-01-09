@@ -10,7 +10,7 @@ namespace DatabaseLogging
 {
     public class LoggingContext : DbContext
     {
-        public LoggingContext() : base(@"LogsDatabase")
+        public LoggingContext() : base(@"LoggerConnectingString")
         {
         }
 

@@ -9,5 +9,6 @@ namespace DtoLayer
         public TypeDto TypeModel { get; set; }
         public List<TypeDto> Attributes { get; set; }
         public AccessLevel Access { get; set; }
+        public bool IsReadOnly { get; set; }
     }
 }

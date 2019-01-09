@@ -16,5 +16,7 @@ namespace FileSerializer.Model
         public List<TypeXml> Attributes { get; set; }
         [DataMember]
         public AccessLevel Access { get; set; }
+        [DataMember]
+        public bool IsReadOnly { get; set; }
     }
 }
