@@ -80,7 +80,7 @@
       <Project>{F1AF2B6D-BF02-4846-88E3-823AF9D833C4}</Project>
       <Name>MEF</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjektTPA.Lib\BusinessLogic.csproj">
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
       <Project>{5465E1D6-3EB7-47EC-8B2C-963ADF5126A8}</Project>
       <Name>BusinessLogic</Name>
     </ProjectReference>

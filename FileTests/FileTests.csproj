@@ -64,7 +64,7 @@
       <Project>{4AD521ED-3A17-4A9A-9279-3A93F46D9D93}</Project>
       <Name>FileSerializer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ProjektTPA.Lib\BusinessLogic.csproj">
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
       <Project>{5465E1D6-3EB7-47EC-8B2C-963ADF5126A8}</Project>
       <Name>BusinessLogic</Name>
     </ProjectReference>

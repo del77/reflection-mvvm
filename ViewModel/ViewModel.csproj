@@ -69,7 +69,7 @@
     <Compile Include="Base\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ProjektTPA.Lib\BusinessLogic.csproj">
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj">
       <Project>{5465e1d6-3eb7-47ec-8b2c-963adf5126a8}</Project>
       <Name>BusinessLogic</Name>
     </ProjectReference>
